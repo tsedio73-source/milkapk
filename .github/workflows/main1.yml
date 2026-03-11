@@ -1,0 +1,21 @@
+name: Build APK
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-22.04  # Specific version use karna safe hai
+    steps:
+      - uses: actions/checkout@v3  # Updated to v3
+
+      - name: Buildozer Action
+        uses: ArtemSerebriakov/buildozer-action@v1
+        with:
+          buildozer_version: master
+          command: buildozer android debug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3  # Updated to v3
+        with:
+          name: package
+          path: bin/*.apk
+
+
